@@ -12,9 +12,13 @@ interface LoginRequest {
 app.post("/api/login", (req, res) => {
   const loginRequest = JSON.parse(req.body) as LoginRequest;
   if (loginRequest.username === 'user01' && loginRequest.password === '1234') {
-    return res.status(200);
+    return res.status(200).json({
+      username: loginRequest.username,
+    });
   } else {
-    return res.status(401);
+    return res.status(401).json({
+      message: 'Not authenticated'
+    });
   }
 });
 
