@@ -3,6 +3,8 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 interface LoginRequest {
   username: string;
@@ -10,7 +12,7 @@ interface LoginRequest {
 }
 
 app.post("/api/login", (req, res) => {
-  const loginRequest = JSON.parse(req.body) as LoginRequest;
+  const loginRequest = req.body as LoginRequest;
   if (loginRequest.username === 'user01' && loginRequest.password === '1234') {
     return res.status(200).json({
       username: loginRequest.username,
